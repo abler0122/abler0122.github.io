@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>老麵的全端攻城航海誌</title>
+  
+  <subtitle>網頁學習筆記</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://abler0122.github.io/"/>
+  <updated>2018-02-22T06:10:17.843Z</updated>
+  <id>http://abler0122.github.io/</id>
+  
+  <author>
+    <name>Old Man</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如果Git能夠喚回曾經的code-Git版本控制入門篇</title>
+    <link href="http://abler0122.github.io/2017/12/13/%E5%A6%82%E6%9E%9CGit%E8%83%BD%E5%A4%A0%E5%96%9A%E5%9B%9E%E6%9B%BE%E7%B6%93%E7%9A%84code-Git%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E5%85%A5%E9%96%80%E7%AF%87/"/>
+    <id>http://abler0122.github.io/2017/12/13/如果Git能夠喚回曾經的code-Git版本控制入門篇/</id>
+    <published>2017-12-13T12:22:26.000Z</published>
+    <updated>2018-02-22T06:10:17.843Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用Git可以讓時光倒回🕑 ，喚回曾經你/妳的code。<br><a id="more"></a></p><h2 id="什麼是Git"><a href="#什麼是Git" class="headerlink" title="什麼是Git?"></a>什麼是Git?</h2><p>Git出自於Linux之父”Linux Torbalds”在開發Linux kernel的時候，設計出來版本控制系統，當時的版本控制系統大多屬於集中式版本控制系統 (Centralized Version Control Systems，簡稱CVCSs)，Git的話是屬於分散式版本控制系統 (Distributed Version Control Systems, 簡稱DVCSs) ，什麼是集中式版本控制系統跟散式版本控制系統 就自己去研究吧。目前大多數的開放原始碼專案、儲存庫都是採用Git，像是知名的可以沒有女友，但不可以沒有的Github，還有Bitbucket、Gitlab，所以Git已經算是必學的工具了。</p><h2 id="為何要用Git"><a href="#為何要用Git" class="headerlink" title="為何要用Git?"></a>為何要用Git?</h2><p>為何要用Git呢?，像剛剛說的大多數專案都採用Git，當然要好好的學一下。 另外大家想想以往在做報告、作業的時候是如何管理版本、整合整組的報告，絕大多數的人應該都是把檔案複製一份放在用日期或是版本命名的目錄，這種做法很簡單，但是沒辦法容易看出版本的差異跟有效的管理。如果使用Git，它可以紀錄版本的差異，還有版本之間合併、時光倒回🕑的功能。</p><h2 id="如何使用Git"><a href="#如何使用Git" class="headerlink" title="如何使用Git?"></a>如何使用Git?</h2><p>首先要安裝Git，選擇你/妳使用的作業系統版本下載&amp;安裝。安裝完後要設定使用者名稱跟信箱才可以使用，之後提交的版本都會使用這些資訊，開啟Git bash輸入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">"使用者名稱(前後要加雙引號)"</span></span><br><span class="line">$ git config --global user.email 信箱</span><br></pre></td></tr></table></figure><h4 id="🔹初始化"><a href="#🔹初始化" class="headerlink" title="🔹初始化"></a>🔹初始化</h4><p>如果想要使用Git在某資料中，需要進入該資料夾然後輸入以下指令，該指令會建立一個.git的資料夾，裡面是放著紀錄的檔案：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure><h4 id="🔹查看狀態"><a href="#🔹查看狀態" class="headerlink" title="🔹查看狀態"></a>🔹查看狀態</h4><p>如果在資料夾中新增或是修改檔案，可以用指令查看狀態：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure><h4 id="🔹提交版本"><a href="#🔹提交版本" class="headerlink" title="🔹提交版本"></a>🔹提交版本</h4><p>若要提交版本需要先將檔案加入追蹤，後才能提交版本：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git add 檔案或資料夾名稱(可以輸入 ./ 選擇全部檔案)</span><br><span class="line">$ git commit -m <span class="string">"版本訊息"</span></span><br></pre></td></tr></table></figure><div class="tip"><br>建議在每次使用Git指令時，先查看目前狀態，再三確認過才進行下一步<br></div><h4 id="🔹查看版本紀錄"><a href="#🔹查看版本紀錄" class="headerlink" title="🔹查看版本紀錄"></a>🔹查看版本紀錄</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br></pre></td></tr></table></figure><div class="tip"><br>輸入q離開喔<br></div><h4 id="🔹建立-amp-切換分支"><a href="#🔹建立-amp-切換分支" class="headerlink" title="🔹建立&amp;切換分支"></a>🔹建立&amp;切換分支</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch 要建立的分支名稱</span><br><span class="line">$ git checkout  分支名稱</span><br></pre></td></tr></table></figure><h4 id="🔹克隆-clone-遠端儲存庫"><a href="#🔹克隆-clone-遠端儲存庫" class="headerlink" title="🔹克隆(clone)遠端儲存庫"></a>🔹克隆(clone)遠端儲存庫</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> 遠端儲存庫</span><br></pre></td></tr></table></figure><h4 id="🔹上傳-更新版本"><a href="#🔹上傳-更新版本" class="headerlink" title="🔹上傳/更新版本"></a>🔹上傳/更新版本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin 分支名稱</span><br><span class="line">$ git pull</span><br></pre></td></tr></table></figure><h4 id="🔹合併版本"><a href="#🔹合併版本" class="headerlink" title="🔹合併版本"></a>🔹合併版本</h4><p>先切換到要合併進來的分支，然後執行以下指令，例如：A合併到B，要先切換到B分支，執行git merge A</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge 分支名稱</span><br></pre></td></tr></table></figure><h2 id="WTF-😵所以如何在團隊開發中使用Git"><a href="#WTF-😵所以如何在團隊開發中使用Git" class="headerlink" title="WTF???😵所以如何在團隊開發中使用Git"></a>WTF???😵所以如何在團隊開發中使用Git</h2><p>如果是小專案或是專題，可以嘗試使用Github Flow，這就先自己去研究😜，之後在分享囉🍻~</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用Git可以讓時光倒回🕑 ，喚回曾經你/妳的code。&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Coding閒聊碎碎念20170922</title>
+    <link href="http://abler0122.github.io/2017/09/22/Coding%E9%96%92%E8%81%8A%E7%A2%8E%E7%A2%8E%E5%BF%B520170922/"/>
+    <id>http://abler0122.github.io/2017/09/22/Coding閒聊碎碎念20170922/</id>
+    <published>2017-09-22T07:48:00.000Z</published>
+    <updated>2018-02-22T06:09:50.220Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近終於完成開發許久的運動資訊網站，來碎念一下😝</p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近終於完成開發許久的運動資訊網站，雖然只是擔任程式開發成員在寫程式，但是還是有一些心得和大家分享。<br>這次開發的網站，有別於我以前開發過的網站，以前開發過都是形象網站，主要是文章管理或是上傳檔案等等功能，而且使用者都是來看看網站而已，而這次所開發的運動資訊網站比較像是一個應用程式，使用者登入後可以看到或查詢自己的資料，還有報名活動，註冊等等…<a id="more"></a>,雖然感覺上都是做新增修改刪除讀取的功能啊~，但差別在於需要考慮使用者操作順不順暢，還有畫面重新載入換頁等等關於畫面操作流程的問題。<br>另外在團隊開發過程中有遇到程式碼版本合併衝突問題，日後再來分享。<br><!-- more --></p><h2 id="使用好的工具效率增倍"><a href="#使用好的工具效率增倍" class="headerlink" title="使用好的工具效率增倍"></a>使用好的工具效率增倍</h2><p>開發網站一定會使用到編輯器，來分享我在使用的工具，我使用的編輯器是Vistual Studio Code搭配GitLen套件， 另外使用三個螢幕(筆電螢幕 +外接螢幕+外接螢幕)，我的筆電可以使用HDMI跟VGA可以同時使用， 最後還有一個最重要的東西就是我的Debug神器「泰迪」，手腕痛時可以當作滑鼠手腕墊。</p><ul><li>Vistual Studio Code 編輯器<ul><li>GitLen</li></ul></li><li>三螢幕(筆電螢幕 +外接螢幕+外接螢幕)</li><li>泰迪</li></ul><h2 id="一些心得碎念"><a href="#一些心得碎念" class="headerlink" title="一些心得碎念"></a>一些心得碎念</h2><p>在專案中我主要是在開發資料跟畫面串接，在這部分考慮到使用者操作流暢，打算用Ajax非同步讀。取資料的方式，另外我是用jQuery(心裡想：應該用個Vuejs等等前端框架)，但是因為時間很趕，要開發API又要處理前端的部分，所以就先選擇用jQuery日後有機會再來改，其實後來有點後悔，因為沒想到畫面有許多資料要處理，jQuery畢竟只是Library，程式架構跟流程都要自己設計。<br>專案結束後也是在這閒聊時，開始接觸到Vuejs，回頭看之前寫的jQuery，忘了差不多了…。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近終於完成開發許久的運動資訊網站，來碎念一下😝&lt;/p&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近終於完成開發許久的運動資訊網站，雖然只是擔任程式開發成員在寫程式，但是還是有一些心得和大家分享。&lt;br&gt;這次開發的網站，有別於我以前開發過的網站，以前開發過都是形象網站，主要是文章管理或是上傳檔案等等功能，而且使用者都是來看看網站而已，而這次所開發的運動資訊網站比較像是一個應用程式，使用者登入後可以看到或查詢自己的資料，還有報名活動，註冊等等…
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
