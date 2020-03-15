@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>[Laravel筆記]播種器Seeding-Day8</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>[Laravel筆記]播種器Seeding-Day8 | 老麵OldMan’s blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="[Laravel筆記]播種器Seeding-Day8" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A long time ago, the oldman and the legcy code." />
+<meta property="og:description" content="A long time ago, the oldman and the legcy code." />
+<link rel="canonical" href="http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8.html" />
+<meta property="og:url" content="http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8.html" />
+<meta property="og:site_name" content="老麵OldMan’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-30T19:36:13+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8.html","description":"A long time ago, the oldman and the legcy code.","dateModified":"2018-11-30T19:36:13+08:00","datePublished":"2018-11-30T19:36:13+08:00","headline":"[Laravel筆記]播種器Seeding-Day8","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+  <body>
+    <main class="container">
+      <section class="about">
+        <a href="/"><img src="/assets/portfolio.png" alt="老麵 OldMan"></a>
+        <h2 id="title">
+          <a href="/">老麵 OldMan</a>
+        </h2>
+        <p class="tagline">Back-End Developer</p>
+        <ul class="social"><a href="https://github.com/abler0122">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a></ul><p>&copy;
+          2020</p>
+      </section>
+      <section class="content">
+        <div class="post-container">
+  <a class="post-link" href="/laravel/2018/11/30/Laravel-Seeder-Day8.html">
+    <h2 class="post-title">[Laravel筆記]播種器Seeding-Day8</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Laravel</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Nov 30, 2018</div>
+  </div>
+  <div class="post">
+    <!-- more -->
+<h2 id="創建seeder">創建Seeder</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:seeder ArticleTableSeeder
+</code></pre></div></div>
+
+<h2 id="撰寫seeder">撰寫Seeder</h2>
+
+<p>寫在<code class="highlighter-rouge">run</code>方法中。</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// database/seeds/ArticleTableSeeder.php
+<span class="cp">&lt;?php</span>
+
+<span class="kn">use</span> <span class="nn">Illuminate\Database\Seeder</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ArticleTableSeeder</span> <span class="k">extends</span> <span class="nx">Seeder</span>
+<span class="p">{</span>
+  <span class="cd">/**
+    * Run the database seeds.
+    *
+    * @return void
+    */</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="nx">DB</span><span class="o">::</span><span class="na">table</span><span class="p">(</span><span class="s1">'article'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">([</span>
+      <span class="s1">'title'</span> <span class="o">=&gt;</span> <span class="nx">str_random</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+      <span class="s1">'subtitle'</span> <span class="o">=&gt;</span> <span class="nx">str_random</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+      <span class="s1">'author'</span> <span class="o">=&gt;</span> <span class="nx">str_random</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+      <span class="s1">'content'</span> <span class="o">=&gt;</span> <span class="nx">str_random</span><span class="p">(</span><span class="mi">150</span><span class="p">),</span>
+    <span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="執行seeder">執行Seeder</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan db:seed
+
+// or
+
+php artisan db:seed <span class="nt">--class</span><span class="o">=</span>ArticleTableSeeder
+</code></pre></div></div>
+
+  </div><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8.html';
+      this.page.identifier = 'http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://abler0122.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=UA-69062481-3"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-69062481-3');
+	</script></body>
+</html>

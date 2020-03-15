@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>[Laravel筆記]Eloquent Model-Day6</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>[Laravel筆記]Eloquent Model-Day6 | 老麵OldMan’s blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="[Laravel筆記]Eloquent Model-Day6" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A long time ago, the oldman and the legcy code." />
+<meta property="og:description" content="A long time ago, the oldman and the legcy code." />
+<link rel="canonical" href="http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html" />
+<meta property="og:url" content="http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html" />
+<meta property="og:site_name" content="老麵OldMan’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-08T19:36:57+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html","description":"A long time ago, the oldman and the legcy code.","dateModified":"2018-11-08T19:36:57+08:00","datePublished":"2018-11-08T19:36:57+08:00","headline":"[Laravel筆記]Eloquent Model-Day6","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+  <body>
+    <main class="container">
+      <section class="about">
+        <a href="/"><img src="/assets/portfolio.png" alt="老麵 OldMan"></a>
+        <h2 id="title">
+          <a href="/">老麵 OldMan</a>
+        </h2>
+        <p class="tagline">Back-End Developer</p>
+        <ul class="social"><a href="https://github.com/abler0122">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a></ul><p>&copy;
+          2020</p>
+      </section>
+      <section class="content">
+        <div class="post-container">
+  <a class="post-link" href="/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html">
+    <h2 class="post-title">[Laravel筆記]Eloquent Model-Day6</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Laravel</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Nov 8, 2018</div>
+  </div>
+  <div class="post">
+    <!-- more -->
+<h2 id="創建model">創建Model</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:model Article
+</code></pre></div></div>
+<p>可加入參數<code class="highlighter-rouge">--migration</code>或<code class="highlighter-rouge">--m</code>，生成migration</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:model Article <span class="nt">--migration</span>
+php artisan make:model Article <span class="nt">--m</span>
+</code></pre></div></div>
+
+<h2 id="model設定">Model設定</h2>
+
+<h4 id="選擇資料表table">🔹選擇資料表(table)</h4>
+
+<p>預設使用的資料表會與Model名稱相同，如不同可自行設定，只要定義變數<code class="highlighter-rouge">$table</code>即可。</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="c1">// app/Article.php</span>
+
+<span class="kn">namespace</span> <span class="nn">App</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nn">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Article</span> <span class="k">extends</span> <span class="nx">Model</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">'news'</span><span class="p">;</span> <span class="err">\</span><span class="nx">\ex</span><span class="o">:</span><span class="nx">選擇news資料表</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="時間戳記timestamp">🔹時間戳記(timestamp)</h4>
+
+<p>Eloquent預設會有<code class="highlighter-rouge">create_at</code>和<code class="highlighter-rouge">updated_at</code>這兩個欄位，如果不需要，加入<code class="highlighter-rouge">$timestamps</code>變數值為<code class="highlighter-rouge">false</code>。</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="c1">// app/Article.php</span>
+
+<span class="kn">namespace</span> <span class="nn">App</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nn">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Article</span> <span class="k">extends</span> <span class="nx">Model</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$timestamps</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="使用範例">使用範例</h2>
+<p>範例實作CRUD</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// app/Http/Controllers/ArticleController.php
+
+<span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">App\Http\Controllers</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nn">App\Article</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nn">Illuminate\Http\Request</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ArticleController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="cd">/**
+     * 取得所有文章。
+     *
+     * @return Response
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Article</span><span class="o">::</span><span class="na">all</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="cd">/**
+     * 建立新的文章。
+     *
+     * @param  Request  $request
+     * @return Response
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">store</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$article</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Article</span><span class="p">;</span>
+        
+        <span class="nv">$article</span><span class="o">-&gt;</span><span class="na">title</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">title</span><span class="p">;</span>
+        <span class="nv">$article</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="nx">Auth</span><span class="o">::</span><span class="na">user</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+        <span class="nv">$article</span><span class="o">-&gt;</span><span class="na">content</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">content</span><span class="p">;</span>
+
+        <span class="nv">$article</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="cd">/**
+     * 更新文章。
+     *
+     * @param  Request  $request
+     * @return Response
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">update</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">Article</span><span class="o">::</span><span class="na">where</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span>
+            <span class="s1">'title'</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">title</span><span class="p">,</span>
+            <span class="s1">'content'</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">content</span><span class="p">,</span>
+        <span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="cd">/**
+     * 刪除文章。
+     * 
+     * @param  Request  $request
+     * @return Response
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">delete</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">Article</span><span class="o">::</span><span class="na">find</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </div><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html';
+      this.page.identifier = 'http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://abler0122.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=UA-69062481-3"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-69062481-3');
+	</script></body>
+</html>

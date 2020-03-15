@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>[Laravel筆記]開發環境建置Homestead-Day1</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>[Laravel筆記]開發環境建置Homestead-Day1 | 老麵OldMan’s blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="[Laravel筆記]開發環境建置Homestead-Day1" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Laravel提供快速方便的環境建置方式-Homestead" />
+<meta property="og:description" content="Laravel提供快速方便的環境建置方式-Homestead" />
+<link rel="canonical" href="http://localhost:4000/laravel/2018/02/26/Laravel-Homestead-Day1.html" />
+<meta property="og:url" content="http://localhost:4000/laravel/2018/02/26/Laravel-Homestead-Day1.html" />
+<meta property="og:site_name" content="老麵OldMan’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-02-26T15:18:48+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/laravel/2018/02/26/Laravel-Homestead-Day1.html","description":"Laravel提供快速方便的環境建置方式-Homestead","dateModified":"2018-02-26T15:18:48+08:00","datePublished":"2018-02-26T15:18:48+08:00","headline":"[Laravel筆記]開發環境建置Homestead-Day1","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/laravel/2018/02/26/Laravel-Homestead-Day1.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+  <body>
+    <main class="container">
+      <section class="about">
+        <a href="/"><img src="/assets/portfolio.png" alt="老麵 OldMan"></a>
+        <h2 id="title">
+          <a href="/">老麵 OldMan</a>
+        </h2>
+        <p class="tagline">Back-End Developer</p>
+        <ul class="social"><a href="https://github.com/abler0122">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a></ul><p>&copy;
+          2020</p>
+      </section>
+      <section class="content">
+        <div class="post-container">
+  <a class="post-link" href="/laravel/2018/02/26/Laravel-Homestead-Day1.html">
+    <h2 class="post-title">[Laravel筆記]開發環境建置Homestead-Day1</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Laravel</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Feb 26, 2018</div>
+  </div>
+  <div class="post">
+    <p>Laravel提供快速方便的環境建置方式-Homestead
+<!-- more --></p>
+<h2 id="homestead預設環境">Homestead預設環境</h2>
+<ul>
+  <li>Ubuntu 14.04</li>
+  <li>Git</li>
+  <li>PHP 5.6 / 7.0</li>
+  <li>Nginx</li>
+  <li>MySQL
+ ……</li>
+</ul>
+
+<h2 id="安裝homestead">安裝Homestead</h2>
+<p>首先下載/安裝好VirtualBox或是VMWare，之後在安裝Vagrant。
+接下來安裝Vagrant Box，在終端機執行下列指令，通常會需要一段時間可以先去睡😴😴😴</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    vagrant box add laravel/homestead
+</code></pre></div></div>
+<p>下載Homestead的Vagrant設定檔，用Git clone下來<a href="/2017/12/13/[Git]如果Git能夠喚回曾經的code-Git版本控制入門篇/" title="如果Git能夠喚回曾經的code-Git版本控制入門篇">(如果Git能夠喚回曾經的code-Git版本控制入門篇)</a>，並執行init.bat / init.sh，產生Hometestead.yaml</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    git clone https://github.com/laravel/homestead.git Homestead
+</code></pre></div></div>
+
+<h2 id="設定homestead檔">設定Homestead檔</h2>
+<p>Hometestead.yaml是用來設定環境的配置</p>
+<ul>
+  <li>ip:  設定local端的IP位置
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">ip</span><span class="pi">:</span> <span class="s">192.168.10.10</span>
+</code></pre></div>    </div>
+  </li>
+  <li>memory: 配給虛擬機記憶體的大小
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">memory</span><span class="pi">:</span> <span class="m">2048</span>
+</code></pre></div>    </div>
+  </li>
+  <li>cpus: 配給虛擬機CPU的個數
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">cpus</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div>    </div>
+  </li>
+  <li>provider: Vagrant的提供者
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">provider</span><span class="pi">:</span> <span class="s">virtualbox</span>
+</code></pre></div>    </div>
+  </li>
+  <li>authorize: ssh key位置
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">authorize</span><span class="pi">:</span> <span class="s">~/.ssh/id_rsa.pub</span>
+</code></pre></div>    </div>
+  </li>
+  <li>folders: 設定共享目錄
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">folders</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">map</span><span class="pi">:</span> <span class="s">C:\code\</span>
+      <span class="na">to</span><span class="pi">:</span> <span class="s">/home/vagrant/code/</span>
+</code></pre></div>    </div>
+  </li>
+  <li>sites: 設定網域與共享目錄
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">sites</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">map</span><span class="pi">:</span> <span class="s">homestead.test</span>
+      <span class="na">to</span><span class="pi">:</span> <span class="s">/home/vagrant/code/public</span>
+</code></pre></div>    </div>
+  </li>
+  <li>port: 轉port設定
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">send</span><span class="pi">:</span> <span class="m">80</span>
+      <span class="na">to</span><span class="pi">:</span> <span class="m">8080</span>
+</code></pre></div>    </div>
+    <h2 id="啟動vagrant囉">啟動Vagrant囉~</h2>
+    <p>在Homestead目錄下輸入指令啟動Vagrant</p>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">Vagrant up</span>
+</code></pre></div>    </div>
+    <p>遠端連線</p>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">Vagrant ssh</span>
+</code></pre></div>    </div>
+    <p>建立Laravel專案</p>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">laravel new 專案名稱</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+  </div><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/laravel/2018/02/26/Laravel-Homestead-Day1.html';
+      this.page.identifier = 'http://localhost:4000/laravel/2018/02/26/Laravel-Homestead-Day1.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://abler0122.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=UA-69062481-3"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-69062481-3');
+	</script></body>
+</html>

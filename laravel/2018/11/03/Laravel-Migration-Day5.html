@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>[Laravel筆記]資料庫Migration-Day5</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>[Laravel筆記]資料庫Migration-Day5 | 老麵OldMan’s blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="[Laravel筆記]資料庫Migration-Day5" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Migratoin是用來操作資料庫schema，在團隊開發中，可能會遇到各版本有不同的schema，所以需要去資料庫手動修改schema，非常繁瑣複雜，但使用Migratoin可以簡單的解決此問題。" />
+<meta property="og:description" content="Migratoin是用來操作資料庫schema，在團隊開發中，可能會遇到各版本有不同的schema，所以需要去資料庫手動修改schema，非常繁瑣複雜，但使用Migratoin可以簡單的解決此問題。" />
+<link rel="canonical" href="http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5.html" />
+<meta property="og:url" content="http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5.html" />
+<meta property="og:site_name" content="老麵OldMan’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-03T10:07:39+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5.html","description":"Migratoin是用來操作資料庫schema，在團隊開發中，可能會遇到各版本有不同的schema，所以需要去資料庫手動修改schema，非常繁瑣複雜，但使用Migratoin可以簡單的解決此問題。","dateModified":"2018-11-03T10:07:39+08:00","datePublished":"2018-11-03T10:07:39+08:00","headline":"[Laravel筆記]資料庫Migration-Day5","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+  <body>
+    <main class="container">
+      <section class="about">
+        <a href="/"><img src="/assets/portfolio.png" alt="老麵 OldMan"></a>
+        <h2 id="title">
+          <a href="/">老麵 OldMan</a>
+        </h2>
+        <p class="tagline">Back-End Developer</p>
+        <ul class="social"><a href="https://github.com/abler0122">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a></ul><p>&copy;
+          2020</p>
+      </section>
+      <section class="content">
+        <div class="post-container">
+  <a class="post-link" href="/laravel/2018/11/03/Laravel-Migration-Day5.html">
+    <h2 class="post-title">[Laravel筆記]資料庫Migration-Day5</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Laravel</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Nov 3, 2018</div>
+  </div>
+  <div class="post">
+    <p>Migratoin是用來操作資料庫schema，在團隊開發中，可能會遇到各版本有不同的schema，所以需要去資料庫手動修改schema，非常繁瑣複雜，但使用Migratoin可以簡單的解決此問題。
+<!-- more --></p>
+
+<h2 id="創建migration">創建Migration</h2>
+<p>使用artisan指令創建<code class="highlighter-rouge">make:migration</code>，亦可加入參數<code class="highlighter-rouge">--create</code>和<code class="highlighter-rouge">--table</code>，分別為新增和使用資料表。</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:migration create_article_table <span class="nt">--create</span><span class="o">=</span>article
+</code></pre></div></div>
+
+<h2 id="migration結構">Migration結構</h2>
+<p>Migration檔案放置在<code class="highlighter-rouge">database/migrations</code>目錄，每個檔案名稱都會包含建立時間。
+<code class="highlighter-rouge">up</code>： 增加新的資料表，欄位，索引
+<code class="highlighter-rouge">down</code>：</p>
+
+<h4 id="新增資料表table">🔹新增資料表(table)</h4>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">Schema</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">'article'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">increments</span><span class="p">(</span><span class="s1">'id'</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div></div>
+
+<h4 id="重新命名資料表table">🔹重新命名資料表(table)</h4>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">Schema</span><span class="o">::</span><span class="na">rename</span><span class="p">(</span><span class="nv">$from</span><span class="p">,</span> <span class="nv">$to</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="drop資料表table">🔹Drop資料表(table)</h4>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">Schema</span><span class="o">::</span><span class="na">drop</span><span class="p">(</span><span class="s1">'article'</span><span class="p">);</span>
+  <span class="nx">Schema</span><span class="o">::</span><span class="na">dropIfExists</span><span class="p">(</span><span class="s1">'article'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="欄位column型態">🔹欄位(column)型態</h4>
+<p>太多了列舉幾個常用的：</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$table</span><span class="o">-&gt;</span><span class="na">increments</span><span class="p">(</span><span class="s1">'id'</span><span class="p">);</span> <span class="c1">//編號</span>
+
+<span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">'title'</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span> <span class="c1">//VARCHAR</span>
+
+<span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamp</span><span class="p">(</span><span class="s1">'date'</span><span class="p">);</span> <span class="c1">//時間戳記</span>
+</code></pre></div></div>
+
+<h2 id="完成範例">完成範例</h2>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 2018_02_10_131015_article.php
+<span class="cp">&lt;?php</span>
+
+<span class="kn">use</span> <span class="nn">Illuminate\Support\Facades\Schema</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nn">Illuminate\Database\Schema\Blueprint</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nn">Illuminate\Database\Migrations\Migration</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Article</span> <span class="k">extends</span> <span class="nx">Migration</span>
+<span class="p">{</span>
+  <span class="cd">/**
+   * Run the migrations.
+   *
+   * @return void
+   */</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="nf">up</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="nx">Schema</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">'article'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">increments</span><span class="p">(</span><span class="s1">'id'</span><span class="p">);</span>
+      <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">'title'</span><span class="p">);</span>
+      <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">timestamp</span><span class="p">(</span><span class="s1">'date'</span><span class="p">);</span>
+      <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">'author'</span><span class="p">);</span>
+      <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">string</span><span class="p">(</span><span class="s1">'content'</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="cd">/**
+   * Reverse the migrations.
+   *
+   * @return void
+   */</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="nf">down</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="nx">Schema</span><span class="o">::</span><span class="na">dropIfExists</span><span class="p">(</span><span class="s1">'article'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="執行migration">執行Migration</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan migrate
+</code></pre></div></div>
+
+  </div><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5.html';
+      this.page.identifier = 'http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://abler0122.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=UA-69062481-3"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-69062481-3');
+	</script></body>
+</html>

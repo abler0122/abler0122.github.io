@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>[Laravel筆記]路由設定Route-Day2</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>[Laravel筆記]路由設定Route-Day2 | 老麵OldMan’s blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="[Laravel筆記]路由設定Route-Day2" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Laravel路由設定-📓筆記" />
+<meta property="og:description" content="Laravel路由設定-📓筆記" />
+<link rel="canonical" href="http://localhost:4000/laravel/2018/03/05/Laravel-Route-Day2.html" />
+<meta property="og:url" content="http://localhost:4000/laravel/2018/03/05/Laravel-Route-Day2.html" />
+<meta property="og:site_name" content="老麵OldMan’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-03-05T13:11:11+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/laravel/2018/03/05/Laravel-Route-Day2.html","description":"Laravel路由設定-📓筆記","dateModified":"2018-03-05T13:11:11+08:00","datePublished":"2018-03-05T13:11:11+08:00","headline":"[Laravel筆記]路由設定Route-Day2","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/laravel/2018/03/05/Laravel-Route-Day2.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+  <body>
+    <main class="container">
+      <section class="about">
+        <a href="/"><img src="/assets/portfolio.png" alt="老麵 OldMan"></a>
+        <h2 id="title">
+          <a href="/">老麵 OldMan</a>
+        </h2>
+        <p class="tagline">Back-End Developer</p>
+        <ul class="social"><a href="https://github.com/abler0122">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a></ul><p>&copy;
+          2020</p>
+      </section>
+      <section class="content">
+        <div class="post-container">
+  <a class="post-link" href="/laravel/2018/03/05/Laravel-Route-Day2.html">
+    <h2 class="post-title">[Laravel筆記]路由設定Route-Day2</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>Laravel</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Mar 5, 2018</div>
+  </div>
+  <div class="post">
+    <p>Laravel路由設定-📓筆記
+<!-- more --></p>
+<h2 id="設定檔位置">設定檔位置</h2>
+<p>所有Laravel路由的設定都是在<code class="highlighter-rouge">routes/web.php</code>檔案中，另外<code class="highlighter-rouge">routes/api.php</code>是用來設定API路由</p>
+
+<h2 id="定義路由">定義路由</h2>
+<p>在設定檔中可以看到已經有預設的路由，依照上次的環境設定<a href="/2018/02/26/[航向Laravel]開發環境建置Homestead-Day1/" title="[航向Laravel]開發環境建置Homestead-Day1">([航向Laravel]開發環境建置Homestead-Day1)</a>IP是<code class="highlighter-rouge">192.168.10.1</code>，所以用瀏覽器開啟連結<code class="highlighter-rouge">http://192.168.10.10/</code>可以看到Laravel歡迎頁面</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">'welcome'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="路由動詞">路由動詞</h2>
+
+<p>當然可以使用HTTP動詞，如果需要一次用到多個動詞，<code class="highlighter-rouge">any</code>或是 <code class="highlighter-rouge">match</code>是個好選擇</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{});</span>
+
+<span class="nx">Route</span><span class="o">::</span><span class="na">post</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{});</span>
+
+<span class="nx">Route</span><span class="o">::</span><span class="na">put</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{});</span>
+
+<span class="nx">Route</span><span class="o">::</span><span class="na">delete</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{});</span>
+
+<span class="nx">Route</span><span class="o">::</span><span class="na">any</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{});</span>
+
+<span class="nx">Route</span><span class="o">::</span><span class="na">match</span><span class="p">([</span><span class="s1">'get'</span><span class="p">,</span> <span class="s1">'post'</span><span class="p">],</span> <span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{});</span>
+
+</code></pre></div></div>
+<h2 id="回傳view">回傳View</h2>
+
+<p>只要在funtion中，加入<code class="highlighter-rouge">return view()</code>並指定模版，就可以回傳View
+View的模板是放在<code class="highlighter-rouge">resources/views/</code>目錄底下，預設會有個<code class="highlighter-rouge">welcome.blade.php</code>是歡迎頁面的模板</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">'welcome'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+<h2 id="搭配控制器使用">搭配控制器使用</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="s1">'controller@index'</span><span class="p">);</span> <span class="c1">// {控制器名稱}@{控制器的方法}</span>
+
+</code></pre></div></div>
+
+<h2 id="加入路由參數">加入路由參數</h2>
+
+<p>例如：取得指定文章編號(id)</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'posts/{id}'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{});</span>
+</code></pre></div></div>
+
+<p>多個參數</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'posts/{date}/{id}/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$date</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span> <span class="p">{});</span>
+
+</code></pre></div></div>
+
+<h2 id="路由命名">路由命名</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">'welcome'</span><span class="p">);</span>
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">(</span><span class="s1">'index'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>有參數</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'posts/{id}'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{})</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">(</span><span class="s1">'posts.show'</span><span class="p">);</span>
+
+<span class="nv">$url</span> <span class="o">=</span> <span class="nx">route</span><span class="p">(</span><span class="s1">'posts.show'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="mi">6</span><span class="p">]);</span>
+</code></pre></div></div>
+
+  </div><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/laravel/2018/03/05/Laravel-Route-Day2.html';
+      this.page.identifier = 'http://localhost:4000/laravel/2018/03/05/Laravel-Route-Day2.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://abler0122.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=UA-69062481-3"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-69062481-3');
+	</script></body>
+</html>

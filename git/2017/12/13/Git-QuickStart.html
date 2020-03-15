@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>[Git]如果Git能夠喚回曾經的code-Git版本控制入門篇</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>[Git]如果Git能夠喚回曾經的code-Git版本控制入門篇 | 老麵OldMan’s blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="[Git]如果Git能夠喚回曾經的code-Git版本控制入門篇" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="使用Git可以讓時光倒回🕑 ，喚回曾經你/妳的code。" />
+<meta property="og:description" content="使用Git可以讓時光倒回🕑 ，喚回曾經你/妳的code。" />
+<link rel="canonical" href="http://localhost:4000/git/2017/12/13/Git-QuickStart.html" />
+<meta property="og:url" content="http://localhost:4000/git/2017/12/13/Git-QuickStart.html" />
+<meta property="og:site_name" content="老麵OldMan’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-12-13T20:22:26+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/git/2017/12/13/Git-QuickStart.html","description":"使用Git可以讓時光倒回🕑 ，喚回曾經你/妳的code。","dateModified":"2017-12-13T20:22:26+08:00","datePublished":"2017-12-13T20:22:26+08:00","headline":"[Git]如果Git能夠喚回曾經的code-Git版本控制入門篇","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/git/2017/12/13/Git-QuickStart.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+  <body>
+    <main class="container">
+      <section class="about">
+        <a href="/"><img src="/assets/portfolio.png" alt="老麵 OldMan"></a>
+        <h2 id="title">
+          <a href="/">老麵 OldMan</a>
+        </h2>
+        <p class="tagline">Back-End Developer</p>
+        <ul class="social"><a href="https://github.com/abler0122">
+              <li>
+                <i class="icon-github-circled"></i>
+              </li>
+            </a></ul><p>&copy;
+          2020</p>
+      </section>
+      <section class="content">
+        <div class="post-container">
+  <a class="post-link" href="/git/2017/12/13/Git-QuickStart.html">
+    <h2 class="post-title">[Git]如果Git能夠喚回曾經的code-Git版本控制入門篇</h2>
+  </a>
+  <div class="post-meta">
+    <ul class="post-categories"><li>git</li></ul>
+    <div class="post-date"><i class="icon-calendar"></i>Dec 13, 2017</div>
+  </div>
+  <div class="post">
+    <p>使用Git可以讓時光倒回🕑 ，喚回曾經你/妳的code。
+<!-- more --></p>
+<h2 id="什麼是git">什麼是Git?</h2>
+<p>Git出自於Linux之父”Linux Torbalds”在開發Linux kernel的時候，設計出來版本控制系統，當時的版本控制系統大多屬於集中式版本控制系統 (Centralized Version Control Systems，簡稱CVCSs)，Git的話是屬於分散式版本控制系統 (Distributed Version Control Systems, 簡稱DVCSs) ，什麼是集中式版本控制系統跟散式版本控制系統 就自己去研究吧。目前大多數的開放原始碼專案、儲存庫都是採用Git，像是知名的可以沒有女友，但不可以沒有的Github，還有Bitbucket、Gitlab，所以Git已經算是必學的工具了。</p>
+
+<h2 id="為何要用git">為何要用Git?</h2>
+<p>為何要用Git呢?，像剛剛說的大多數專案都採用Git，當然要好好的學一下。 另外大家想想以往在做報告、作業的時候是如何管理版本、整合整組的報告，絕大多數的人應該都是把檔案複製一份放在用日期或是版本命名的目錄，這種做法很簡單，但是沒辦法容易看出版本的差異跟有效的管理。如果使用Git，它可以紀錄版本的差異，還有版本之間合併、時光倒回🕑的功能。</p>
+
+<h2 id="如何使用git">如何使用Git?</h2>
+<p>首先要安裝Git，選擇你/妳使用的作業系統版本下載&amp;安裝。安裝完後要設定使用者名稱跟信箱才可以使用，之後提交的版本都會使用這些資訊，開啟Git bash輸入：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git config <span class="nt">--global</span> user.name <span class="s2">"使用者名稱(前後要加雙引號)"</span>
+    <span class="nv">$ </span>git config <span class="nt">--global</span> user.email 信箱
+</code></pre></div></div>
+
+<h4 id="初始化">🔹初始化</h4>
+<p>如果想要使用Git在某資料中，需要進入該資料夾然後輸入以下指令，該指令會建立一個.git的資料夾，裡面是放著紀錄的檔案：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git init
+</code></pre></div></div>
+
+<h4 id="查看狀態">🔹查看狀態</h4>
+<p>如果在資料夾中新增或是修改檔案，可以用指令查看狀態：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git status
+</code></pre></div></div>
+
+<h4 id="提交版本">🔹提交版本</h4>
+<p>若要提交版本需要先將檔案加入追蹤，後才能提交版本：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git add 檔案或資料夾名稱<span class="o">(</span>可以輸入 ./ 選擇全部檔案<span class="o">)</span>
+    <span class="nv">$ </span>git commit <span class="nt">-m</span> <span class="s2">"版本訊息"</span>
+</code></pre></div></div>
+<div class="tip">
+建議在每次使用Git指令時，先查看目前狀態，再三確認過才進行下一步
+</div>
+
+<h4 id="查看版本紀錄">🔹查看版本紀錄</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git log
+</code></pre></div></div>
+<div class="tip">
+輸入q離開喔
+</div>
+
+<h4 id="建立切換分支">🔹建立&amp;切換分支</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git branch 要建立的分支名稱
+    <span class="nv">$ </span>git checkout  分支名稱
+</code></pre></div></div>
+
+<h4 id="克隆clone遠端儲存庫">🔹克隆(clone)遠端儲存庫</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git clone 遠端儲存庫
+</code></pre></div></div>
+
+<h4 id="上傳更新版本">🔹上傳/更新版本</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git push origin 分支名稱
+    <span class="nv">$ </span>git pull
+</code></pre></div></div>
+
+<h4 id="合併版本">🔹合併版本</h4>
+<p>先切換到要合併進來的分支，然後執行以下指令，例如：A合併到B，要先切換到B分支，執行git merge A</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git merge 分支名稱
+</code></pre></div></div>
+
+<h2 id="wtf所以如何在團隊開發中使用git">WTF???😵所以如何在團隊開發中使用Git</h2>
+<p>如果是小專案或是專題，可以嘗試使用Github Flow，這就先自己去研究😜，之後在分享囉🍻~</p>
+
+  </div><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/git/2017/12/13/Git-QuickStart.html';
+      this.page.identifier = 'http://localhost:4000/git/2017/12/13/Git-QuickStart.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://abler0122.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+      </section>
+    </main><script async src="https://www.googletagmanager.com/gtag/js?id=UA-69062481-3"></script>
+      <script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-69062481-3');
+	</script></body>
+</html>
