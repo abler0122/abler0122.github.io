@@ -21,7 +21,7 @@
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html { font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
 
-body { margin: 0; }
+body { margin: 0; background-color: #0c0d0e; color: #676562;}
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block; }
 
@@ -319,7 +319,7 @@ green     #859900  operators, other keywords
 .highlight .il { color: #2aa198; }
 
 /* Literal.Number.Integer.Long */
-.highlight { background-color: #f4f4f4; }
+.highlight { background-color: #202325; }
 
 div.highlight { padding: 5px 20px; }
 
@@ -331,9 +331,9 @@ body { font-family: "Raleway", sans-serif; font-size: 16px; line-height: 1.2em; 
 
 img, embed, object, video { max-width: 100%; }
 
-a { color: #000; transition: color 0.3s; }
+a { color: #676562; transition: color 0.3s; }
 
-a:hover { color: #0a59b0; }
+a:hover { color: #1c5da3; }
 
 h2 { margin: 0.7em 0; }
 
@@ -385,7 +385,7 @@ main .about img { max-width: 150px; }
 
 .post-categories { list-style-type: none; margin: 0; padding: 0; }
 
-.post-categories li { font-size: 14px; float: left; background-color: #e3e3e3; padding: 5px 20px; border-radius: 2px; margin-right: 10px; margin-bottom: 10px; }
+.post-categories li { font-size: 14px; float: left; background-color: #171717; padding: 5px 20px; border-radius: 2px; margin-right: 10px; margin-bottom: 10px; }
 
 @media screen and (max-width: 768px) { .post-categories li { margin-top: 5px; } }
 
@@ -408,14 +408,14 @@ main .about img { max-width: 150px; }
 
 .post-container { padding-left: 30px; }
 
-.post { font-family: "Merriweather", sans-serif; font-weight: 300; color: #222; line-height: 1.9em; }
+.post { font-family: "Merriweather", sans-serif; font-weight: 300; color: #6c6d6a; line-height: 1.9em; }
 
-.post a { color: #0a59b0; text-decoration: none; transition: border-bottom 0.4s; }
+.post a { color: #15508f; text-decoration: none; transition: border-bottom 0.4s; }
 
 .post a:hover { border-bottom: 0.5px solid #0a59b0; }
 
 .post h1, .post h2, .post h3, .post h4, .post h5, .post h6 { font-family: Raleway, sans-serif; }
 
-#posts-label { border-bottom: 1px solid #eee; font-size: 15px; color: #777; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 10px; font-weight: normal; }
+#posts-label { border-bottom: 1px solid #171717; font-size: 15px; color: #777; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 10px; font-weight: normal; }
 
 /*# sourceMappingURL=style.css.map */
