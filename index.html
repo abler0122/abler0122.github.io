@@ -40,7 +40,24 @@
 <ul class="posts">
     <li>
       <h1 id="posts-label">posts</h1>
-    </li><li><a class="post-link" href="/laravel/2018/11/30/Laravel-Seeder-Day8.html">
+    </li><li><a class="post-link" href="/docker/2020/03/15/Docker-Apache-PHP-MySQL.html">
+          <h2 class="post-title">Docker Compose建置Web Service(Apache+PHP+MySQL)</h2>
+        </a>
+        <div class="post-meta">
+          <ul class="post-categories"><li>docker</li></ul>
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            Mar 15, 2020</div>
+        </div>
+        <div class="post"><p>先新建目錄到你想要的地方，裡面包含php, database, html 這三個目錄</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker
+    /php
+    /database
+    /html
+</code></pre></div></div>
+</div>
+      </li><li><a class="post-link" href="/laravel/2018/11/30/Laravel-Seeder-Day8.html">
           <h2 class="post-title">[Laravel筆記]播種器Seeding-Day8</h2>
         </a>
         <div class="post-meta">
@@ -49,7 +66,10 @@
             <i class="icon-calendar"></i>
             Nov 30, 2018</div>
         </div>
-        <div class="post">
+        <div class="post"><h2 id="創建seeder">創建Seeder</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:seeder ArticleTableSeeder
+</code></pre></div></div>
 </div>
       </li><li><a class="post-link" href="/laravel/2018/11/14/Laravel-Validation-Day7.html">
           <h2 class="post-title">[Laravel筆記]表單驗證Validation - Day7</h2>
@@ -60,7 +80,42 @@
             <i class="icon-calendar"></i>
             Nov 14, 2018</div>
         </div>
-        <div class="post">
+        <div class="post"><h2 id="控制器加入驗證">控制器加入驗證</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="c1">// app/Http/Controllers/ArticleController.php</span>
+
+<span class="kn">namespace</span> <span class="nn">App\Http\Controllers</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nn">Auth</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nn">App\Article</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nn">Illuminate\Http\Request</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ArticleController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="cd">/**
+     * 更新文章。
+     *
+     * @param  Request  $request
+     * @return Response
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">update</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="cd">/**
+         * 加入驗證
+         */</span>
+        <span class="nv">$validatedData</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">([</span>
+            <span class="s1">'title'</span> <span class="o">=&gt;</span> <span class="s1">'required|max:255'</span><span class="p">,</span>
+            <span class="s1">'content'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span><span class="p">,</span>
+        <span class="p">]);</span>
+
+        <span class="nx">Article</span><span class="o">::</span><span class="na">where</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span>
+            <span class="s1">'title'</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">title</span><span class="p">,</span>
+            <span class="s1">'content'</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">content</span><span class="p">,</span>
+        <span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 </div>
       </li><li><a class="post-link" href="/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html">
           <h2 class="post-title">[Laravel筆記]Eloquent Model-Day6</h2>
@@ -71,7 +126,14 @@
             <i class="icon-calendar"></i>
             Nov 8, 2018</div>
         </div>
-        <div class="post">
+        <div class="post"><h2 id="創建model">創建Model</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:model Article
+</code></pre></div></div>
+<p>可加入參數<code class="highlighter-rouge">--migration</code>或<code class="highlighter-rouge">--m</code>，生成migration</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:model Article <span class="nt">--migration</span>
+php artisan make:model Article <span class="nt">--m</span>
+</code></pre></div></div>
 </div>
       </li><li><a class="post-link" href="/laravel/2018/11/03/Laravel-Migration-Day5.html">
           <h2 class="post-title">[Laravel筆記]資料庫Migration-Day5</h2>

@@ -1,9 +1,85 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-15T11:20:56+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">老麵OldMan’s blog</title><subtitle>A long time ago, the oldman and the legcy code. </subtitle><entry><title type="html">[Laravel筆記]播種器Seeding-Day8</title><link href="http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8.html" rel="alternate" type="text/html" title="[Laravel筆記]播種器Seeding-Day8" /><published>2018-11-30T19:36:13+08:00</published><updated>2018-11-30T19:36:13+08:00</updated><id>http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8</id><content type="html" xml:base="http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8.html">&lt;!-- more --&gt;
-&lt;h2 id=&quot;創建seeder&quot;&gt;創建Seeder&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-22T20:27:47+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">老麵OldMan’s blog</title><subtitle>A long time ago, the oldman and the legcy code. </subtitle><entry><title type="html">Docker Compose建置Web Service(Apache+PHP+MySQL)</title><link href="http://localhost:4000/docker/2020/03/15/Docker-Apache-PHP-MySQL.html" rel="alternate" type="text/html" title="Docker Compose建置Web Service(Apache+PHP+MySQL)" /><published>2020-03-15T13:50:00+08:00</published><updated>2020-03-15T13:50:00+08:00</updated><id>http://localhost:4000/docker/2020/03/15/Docker-Apache-PHP-MySQL</id><content type="html" xml:base="http://localhost:4000/docker/2020/03/15/Docker-Apache-PHP-MySQL.html">&lt;p&gt;先新建目錄到你想要的地方，裡面包含php, database, html 這三個目錄&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker
+    /php
+    /database
+    /html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;建立 dockerfile&lt;/p&gt;
+
+&lt;p&gt;1.Apache+PHP 環境&lt;/p&gt;
+
+&lt;p&gt;在&lt;code class=&quot;highlighter-rouge&quot;&gt;php&lt;/code&gt;目錄下新增&lt;code class=&quot;highlighter-rouge&quot;&gt;dockerfile&lt;/code&gt;檔案，使用這個&lt;a href=&quot;https://hub.docker.com/_/php/&quot;&gt;官方Image&lt;/a&gt;，依照 php:&amp;lt;version&amp;gt;-apache 的格式選擇 PHP 版本&lt;/p&gt;
+
+&lt;div class=&quot;language-dockerfile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; php:7.3-apache&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; ./html /var/www/html/&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;EXPOSE&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; 80&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2.資料庫環境mariadb&lt;/p&gt;
+
+&lt;p&gt;使用&lt;a href=&quot;https://hub.docker.com/_/mariadb/&quot;&gt;Mariadb Image&lt;/a&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;latest&lt;/code&gt;目前最新版本&lt;/p&gt;
+
+&lt;div class=&quot;language-dockerfile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; mariadb:latest&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;3.建立docker-compose&lt;/p&gt;
+
+&lt;p&gt;在目錄底下新增.env跟docker-compose.yml檔案&lt;/p&gt;
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;3.1'&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;php&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./php/&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;php&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;${PHP_WEB_PORT}:80'&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;${PHP_TCP_PORT}:443'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./html:/var/www/html&lt;/span&gt;
+
+  &lt;span class=&quot;na&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./database/&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mariadb&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;${MYSQL_PORT}:3306'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;${MYSQL_ROOT_PASSWORD}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;.env檔&lt;/p&gt;
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;PHP_WEB_PORT&lt;/span&gt;=&lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;PHP_TCP_PORT&lt;/span&gt;=&lt;span class=&quot;m&quot;&gt;443&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;MYSQL_PORT&lt;/span&gt;=&lt;span class=&quot;m&quot;&gt;3306&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;=&lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;4.(選用)安裝&lt;a href=&quot;https://hub.docker.com/r/phpmyadmin/phpmyadmin/&quot;&gt;phpmyadmin&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;na&quot;&gt;phpmyadmin&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;phpmyadmin/phpmyadmin&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;${PHPMYADMIN_PORT}:80'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;PMA_HOST&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;mysql'&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;PMA_PORT&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;3306'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;.env檔&lt;/p&gt;
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;PHPMYADMIN_PORT&lt;/span&gt;=&lt;span class=&quot;m&quot;&gt;8088&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;5.啟動&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker-compose up
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">先新建目錄到你想要的地方，裡面包含php, database, html 這三個目錄 docker /php /database /html</summary></entry><entry><title type="html">[Laravel筆記]播種器Seeding-Day8</title><link href="http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8.html" rel="alternate" type="text/html" title="[Laravel筆記]播種器Seeding-Day8" /><published>2018-11-30T19:36:13+08:00</published><updated>2018-11-30T19:36:13+08:00</updated><id>http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8</id><content type="html" xml:base="http://localhost:4000/laravel/2018/11/30/Laravel-Seeder-Day8.html">&lt;h2 id=&quot;創建seeder&quot;&gt;創建Seeder&lt;/h2&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php artisan make:seeder ArticleTableSeeder
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
+&lt;!-- more --&gt;
 &lt;h2 id=&quot;撰寫seeder&quot;&gt;撰寫Seeder&lt;/h2&gt;
 
 &lt;p&gt;寫在&lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt;方法中。&lt;/p&gt;
@@ -38,8 +114,7 @@
 // or
 
 php artisan db:seed &lt;span class=&quot;nt&quot;&gt;--class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ArticleTableSeeder
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">[Laravel筆記]表單驗證Validation - Day7</title><link href="http://localhost:4000/laravel/2018/11/14/Laravel-Validation-Day7.html" rel="alternate" type="text/html" title="[Laravel筆記]表單驗證Validation - Day7" /><published>2018-11-14T14:33:22+08:00</published><updated>2018-11-14T14:33:22+08:00</updated><id>http://localhost:4000/laravel/2018/11/14/Laravel-Validation-Day7</id><content type="html" xml:base="http://localhost:4000/laravel/2018/11/14/Laravel-Validation-Day7.html">&lt;!-- more --&gt;
-&lt;h2 id=&quot;控制器加入驗證&quot;&gt;控制器加入驗證&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">創建Seeder php artisan make:seeder ArticleTableSeeder</summary></entry><entry><title type="html">[Laravel筆記]表單驗證Validation - Day7</title><link href="http://localhost:4000/laravel/2018/11/14/Laravel-Validation-Day7.html" rel="alternate" type="text/html" title="[Laravel筆記]表單驗證Validation - Day7" /><published>2018-11-14T14:33:22+08:00</published><updated>2018-11-14T14:33:22+08:00</updated><id>http://localhost:4000/laravel/2018/11/14/Laravel-Validation-Day7</id><content type="html" xml:base="http://localhost:4000/laravel/2018/11/14/Laravel-Validation-Day7.html">&lt;h2 id=&quot;控制器加入驗證&quot;&gt;控制器加入驗證&lt;/h2&gt;
 
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;// app/Http/Controllers/ArticleController.php&lt;/span&gt;
@@ -75,7 +150,7 @@ php artisan db:seed &lt;span class=&quot;nt&quot;&gt;--class&lt;/span&gt;&lt;spa
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
+&lt;!-- more --&gt;
 &lt;h2 id=&quot;錯誤顯示&quot;&gt;錯誤顯示&lt;/h2&gt;
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// view&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;form&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{ { route('article.update') } }&quot;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;POST&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
@@ -154,8 +229,7 @@ php artisan db:seed &lt;span class=&quot;nt&quot;&gt;--class&lt;/span&gt;&lt;spa
 
         &lt;span class=&quot;nv&quot;&gt;$validated&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">[Laravel筆記]Eloquent Model-Day6</title><link href="http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html" rel="alternate" type="text/html" title="[Laravel筆記]Eloquent Model-Day6" /><published>2018-11-08T19:36:57+08:00</published><updated>2018-11-08T19:36:57+08:00</updated><id>http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6</id><content type="html" xml:base="http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html">&lt;!-- more --&gt;
-&lt;h2 id=&quot;創建model&quot;&gt;創建Model&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">控制器加入驗證 &amp;lt;?php // app/Http/Controllers/ArticleController.php namespace App\Http\Controllers; use Auth; use App\Article; use Illuminate\Http\Request; class ArticleController extends Controller { /** * 更新文章。 * * @param Request $request * @return Response */ public function update(Request $request) { /** * 加入驗證 */ $validatedData = $request-&amp;gt;validate([ 'title' =&amp;gt; 'required|max:255', 'content' =&amp;gt; 'required', ]); Article::where('id', $request-&amp;gt;id)-&amp;gt;update([ 'title' =&amp;gt; $request-&amp;gt;title, 'content' =&amp;gt; $request-&amp;gt;content, ]); } }</summary></entry><entry><title type="html">[Laravel筆記]Eloquent Model-Day6</title><link href="http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html" rel="alternate" type="text/html" title="[Laravel筆記]Eloquent Model-Day6" /><published>2018-11-08T19:36:57+08:00</published><updated>2018-11-08T19:36:57+08:00</updated><id>http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6</id><content type="html" xml:base="http://localhost:4000/laravel/2018/11/08/Laravel-Eloquent-Model-Day6.html">&lt;h2 id=&quot;創建model&quot;&gt;創建Model&lt;/h2&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php artisan make:model Article
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -163,7 +237,7 @@ php artisan db:seed &lt;span class=&quot;nt&quot;&gt;--class&lt;/span&gt;&lt;spa
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php artisan make:model Article &lt;span class=&quot;nt&quot;&gt;--migration&lt;/span&gt;
 php artisan make:model Article &lt;span class=&quot;nt&quot;&gt;--m&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
+&lt;!-- more --&gt;
 &lt;h2 id=&quot;model設定&quot;&gt;Model設定&lt;/h2&gt;
 
 &lt;h4 id=&quot;選擇資料表table&quot;&gt;🔹選擇資料表(table)&lt;/h4&gt;
@@ -263,7 +337,7 @@ php artisan make:model Article &lt;span class=&quot;nt&quot;&gt;--m&lt;/span&gt;
         &lt;span class=&quot;nx&quot;&gt;Article&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">[Laravel筆記]資料庫Migration-Day5</title><link href="http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5.html" rel="alternate" type="text/html" title="[Laravel筆記]資料庫Migration-Day5" /><published>2018-11-03T10:07:39+08:00</published><updated>2018-11-03T10:07:39+08:00</updated><id>http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5</id><content type="html" xml:base="http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5.html">&lt;p&gt;Migratoin是用來操作資料庫schema，在團隊開發中，可能會遇到各版本有不同的schema，所以需要去資料庫手動修改schema，非常繁瑣複雜，但使用Migratoin可以簡單的解決此問題。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">創建Model php artisan make:model Article 可加入參數--migration或--m，生成migration php artisan make:model Article --migration php artisan make:model Article --m</summary></entry><entry><title type="html">[Laravel筆記]資料庫Migration-Day5</title><link href="http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5.html" rel="alternate" type="text/html" title="[Laravel筆記]資料庫Migration-Day5" /><published>2018-11-03T10:07:39+08:00</published><updated>2018-11-03T10:07:39+08:00</updated><id>http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5</id><content type="html" xml:base="http://localhost:4000/laravel/2018/11/03/Laravel-Migration-Day5.html">&lt;p&gt;Migratoin是用來操作資料庫schema，在團隊開發中，可能會遇到各版本有不同的schema，所以需要去資料庫手動修改schema，非常繁瑣複雜，但使用Migratoin可以簡單的解決此問題。
 &lt;!-- more --&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;創建migration&quot;&gt;創建Migration&lt;/h2&gt;
@@ -673,73 +747,4 @@ View的模板是放在&lt;code class=&quot;highlighter-rouge&quot;&gt;resources/
     &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;laravel new 專案名稱&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">Laravel提供快速方便的環境建置方式-Homestead</summary></entry><entry><title type="html">[Git]如果Git能夠喚回曾經的code-Git版本控制入門篇</title><link href="http://localhost:4000/git/2017/12/13/Git-QuickStart.html" rel="alternate" type="text/html" title="[Git]如果Git能夠喚回曾經的code-Git版本控制入門篇" /><published>2017-12-13T20:22:26+08:00</published><updated>2017-12-13T20:22:26+08:00</updated><id>http://localhost:4000/git/2017/12/13/Git-QuickStart</id><content type="html" xml:base="http://localhost:4000/git/2017/12/13/Git-QuickStart.html">&lt;p&gt;使用Git可以讓時光倒回🕑 ，喚回曾經你/妳的code。
-&lt;!-- more --&gt;&lt;/p&gt;
-&lt;h2 id=&quot;什麼是git&quot;&gt;什麼是Git?&lt;/h2&gt;
-&lt;p&gt;Git出自於Linux之父”Linux Torbalds”在開發Linux kernel的時候，設計出來版本控制系統，當時的版本控制系統大多屬於集中式版本控制系統 (Centralized Version Control Systems，簡稱CVCSs)，Git的話是屬於分散式版本控制系統 (Distributed Version Control Systems, 簡稱DVCSs) ，什麼是集中式版本控制系統跟散式版本控制系統 就自己去研究吧。目前大多數的開放原始碼專案、儲存庫都是採用Git，像是知名的可以沒有女友，但不可以沒有的Github，還有Bitbucket、Gitlab，所以Git已經算是必學的工具了。&lt;/p&gt;
-
-&lt;h2 id=&quot;為何要用git&quot;&gt;為何要用Git?&lt;/h2&gt;
-&lt;p&gt;為何要用Git呢?，像剛剛說的大多數專案都採用Git，當然要好好的學一下。 另外大家想想以往在做報告、作業的時候是如何管理版本、整合整組的報告，絕大多數的人應該都是把檔案複製一份放在用日期或是版本命名的目錄，這種做法很簡單，但是沒辦法容易看出版本的差異跟有效的管理。如果使用Git，它可以紀錄版本的差異，還有版本之間合併、時光倒回🕑的功能。&lt;/p&gt;
-
-&lt;h2 id=&quot;如何使用git&quot;&gt;如何使用Git?&lt;/h2&gt;
-&lt;p&gt;首先要安裝Git，選擇你/妳使用的作業系統版本下載&amp;amp;安裝。安裝完後要設定使用者名稱跟信箱才可以使用，之後提交的版本都會使用這些資訊，開啟Git bash輸入：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.name &lt;span class=&quot;s2&quot;&gt;&quot;使用者名稱(前後要加雙引號)&quot;&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.email 信箱
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;初始化&quot;&gt;🔹初始化&lt;/h4&gt;
-&lt;p&gt;如果想要使用Git在某資料中，需要進入該資料夾然後輸入以下指令，該指令會建立一個.git的資料夾，裡面是放著紀錄的檔案：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;查看狀態&quot;&gt;🔹查看狀態&lt;/h4&gt;
-&lt;p&gt;如果在資料夾中新增或是修改檔案，可以用指令查看狀態：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git status
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;提交版本&quot;&gt;🔹提交版本&lt;/h4&gt;
-&lt;p&gt;若要提交版本需要先將檔案加入追蹤，後才能提交版本：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git add 檔案或資料夾名稱&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;可以輸入 ./ 選擇全部檔案&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;版本訊息&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;tip&quot;&gt;
-建議在每次使用Git指令時，先查看目前狀態，再三確認過才進行下一步
-&lt;/div&gt;
-
-&lt;h4 id=&quot;查看版本紀錄&quot;&gt;🔹查看版本紀錄&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git log
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;tip&quot;&gt;
-輸入q離開喔
-&lt;/div&gt;
-
-&lt;h4 id=&quot;建立切換分支&quot;&gt;🔹建立&amp;amp;切換分支&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git branch 要建立的分支名稱
-    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout  分支名稱
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;克隆clone遠端儲存庫&quot;&gt;🔹克隆(clone)遠端儲存庫&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone 遠端儲存庫
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;上傳更新版本&quot;&gt;🔹上傳/更新版本&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git push origin 分支名稱
-    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git pull
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;合併版本&quot;&gt;🔹合併版本&lt;/h4&gt;
-&lt;p&gt;先切換到要合併進來的分支，然後執行以下指令，例如：A合併到B，要先切換到B分支，執行git merge A&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git merge 分支名稱
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;wtf所以如何在團隊開發中使用git&quot;&gt;WTF???😵所以如何在團隊開發中使用Git&lt;/h2&gt;
-&lt;p&gt;如果是小專案或是專題，可以嘗試使用Github Flow，這就先自己去研究😜，之後在分享囉🍻~&lt;/p&gt;</content><author><name></name></author><summary type="html">使用Git可以讓時光倒回🕑 ，喚回曾經你/妳的code。</summary></entry></feed>
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">Laravel提供快速方便的環境建置方式-Homestead</summary></entry></feed>
